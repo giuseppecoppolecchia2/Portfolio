@@ -45,6 +45,8 @@ Non aggiungere il telefono del CV o informazioni sanitarie al codice pubblico. `
 
 ## Pubblicazione su Vercel
 
+`vercel.json` fissa esplicitamente il framework Next.js, il comando di build e l'output `.next`, evitando che un preset Node.js generico cerchi un entrypoint `main.ts` o `server.ts`. La Root Directory su Vercel deve essere la root del repository, dove si trovano `package.json` e `vercel.json`.
+
 1. Approva i contenuti pubblici e carica il progetto in un repository GitHub privato. Se non è già un repository, inizializzalo e crea il primo commit.
 2. In Vercel scegli **Add New → Project**, importa il repository e lascia il preset **Next.js**, root del progetto, comando `npm run build` e output automatico.
 3. Imposta Node.js **24.x** e la variabile `SITE_URL` con l'origine HTTPS finale, senza slash conclusivo, per esempio il dominio assegnato da Vercel. Non occorrono segreti o servizi backend.
