@@ -1,0 +1,28 @@
+async (page) => {
+  const base = 'http://127.0.0.1:3001';
+  const browser = page.context().browser();
+  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+  const plain = await context.newPage();
+  const results = [];
+  for (const locale of ['en','it']) {
+    await plain.goto(`${base}/${locale}`);
+    if (!(await plain.locator('h1').isVisible())) throw new Error('No-JS heading missing');
+    await plain.locator('label[for="step-3"]').click();
+    if (!(await plain.locator('#thought-3 a').isVisible())) throw new Error('No-JS trail failed');
+    await plain.locator('#thought-3 a').click({ force: true });
+    if (!plain.url().endsWith(`/${locale}/projects/care-workspace`)) throw new Error('No-JS link failed');
+    results.push(`${locale}: JavaScript disabled — readable home, functioning trail and case-study navigation`);
+  }
+  await context.close();
+  await page.goto(`${base}/en`);
+  await page.keyboard.press('Tab');
+  if (!(await page.locator('.skip-link').evaluate(el => el === document.activeElement))) throw new Error('Skip link not first focus');
+  await page.keyboard.press('Enter');
+  results.push('Keyboard skip link first in focus order and activates');
+  const remote = [];
+  for (const url of ['https://github.com/giuseppecoppolecchia2/ohara','https://github.com/giuseppecoppolecchia2/prestissimo','https://ohara-blush.vercel.app','https://psicologamininni.com']) {
+    try { const r = await page.request.get(url, { timeout: 10000 }); remote.push({ url, status: r.status() }); }
+    catch { remote.push({ url, status: 'unavailable from test environment' }); }
+  }
+  return { results, remote };
+}

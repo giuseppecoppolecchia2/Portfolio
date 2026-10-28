@@ -1,0 +1,40 @@
+async (page) => {
+  const results = [];
+  for (const locale of ['it','en']) {
+    const url = `/cv/Giuseppe-Coppolecchia-CV-${locale.toUpperCase()}.pdf`;
+    const response = await page.request.get(`http://127.0.0.1:3001${url}`);
+    if (response.status() !== 200 || !(response.headers()['content-type'] || '').includes('application/pdf')) throw new Error('PDF response invalid');
+    const bytes = await response.body();
+    if (bytes.toString('ascii', 0, 5) !== '%PDF-') throw new Error('Invalid PDF file');
+    for (const width of [320,390,768,1440]) {
+      await page.setViewportSize({width,height:900});
+      await page.goto(`http://127.0.0.1:3001/${locale}`);
+      if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)) throw new Error(`Header overflow ${locale} ${width}`);
+      const cta = page.locator('#quick a[download]');
+      if (await cta.getAttribute('href') !== url) throw new Error('Wrong localized CV');
+      await cta.scrollIntoViewIfNeeded();
+      const downloadPromise = page.waitForEvent('download');
+      await cta.click();
+      const download = await downloadPromise;
+      if (download.suggestedFilename() !== url.split('/').pop()) throw new Error('Wrong download name');
+      if (width === 390) {
+        await page.getByRole('button',{name:'Menu',exact:true}).click();
+        const link = page.locator('#mobile-nav a[download]');
+        if (!(await link.isVisible()) || await link.getAttribute('href') !== url) throw new Error('Mobile CV missing');
+        const mobileDownload = page.waitForEvent('download');
+        await link.click();
+        await mobileDownload;
+        if (await page.locator('#mobile-nav').isVisible()) throw new Error('Menu did not close');
+      }
+      if (width === 1440) {
+        await page.locator('.desktop-nav a[download]').scrollIntoViewIfNeeded();
+        if (!(await page.locator('.desktop-nav a[download]').isVisible())) throw new Error('Desktop CV missing');
+      }
+      results.push(`${locale} ${width}: PDF download, locale mapping, responsive layout`);
+    }
+    await page.goto(`http://127.0.0.1:3001/${locale}#quick`);
+    await page.locator('#quick').scrollIntoViewIfNeeded();
+    await page.screenshot({path:`output/playwright/cv-${locale}-desktop.png`});
+  }
+  return results;
+}

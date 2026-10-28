@@ -1,0 +1,25 @@
+async (page) => {
+  const results = [];
+  for (const locale of ['it', 'en']) {
+    for (const width of [390,1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`http://127.0.0.1:3001/${locale}`);
+      const images = page.locator('.screenshot-cover img');
+      if (await images.count() !== 3) throw new Error('Expected three screenshots');
+      for (let i = 0; i < 3; i++) {
+        await images.nth(i).scrollIntoViewIfNeeded();
+        await page.waitForFunction(index => { const img = document.querySelectorAll('.screenshot-cover img')[index]; return img.complete && img.naturalWidth > 0; }, i);
+        if (!(await images.nth(i).getAttribute('alt'))) throw new Error('Missing alt');
+      }
+      if (!(await page.locator('#work h3').first().textContent()).includes('Rosanna Mininni')) throw new Error('Client name missing');
+      if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)) throw new Error('Overflow');
+      results.push(`${locale} ${width}: three loaded screenshots, alt text, authorized name and no overflow`);
+    }
+  }
+  await page.goto('http://127.0.0.1:3001/it/projects/care-workspace');
+  await page.locator('.screenshot-cover img').scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => { const img = document.querySelector('.screenshot-cover img'); return img.complete && img.naturalWidth > 0; });
+  if (await page.getByRole('link', { name: 'Visita il sito' }).getAttribute('href') !== 'https://www.psicologamininni.com') throw new Error('Live site URL');
+  results.push('Case study: loaded screenshot and correct public live URL');
+  return results;
+}

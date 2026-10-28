@@ -1,0 +1,74 @@
+async (page) => {
+  const base = 'http://127.0.0.1:3001';
+  const results = [];
+  const assert = (condition, label) => { if (!condition) throw new Error(label); results.push(label); };
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  for (const locale of ['en', 'it']) {
+    for (const width of [320, 375, 390, 768, 1280, 1440]) {
+      await page.setViewportSize({ width, height: width < 760 ? 844 : 900 });
+      const response = await page.goto(`${base}/${locale}`);
+      await page.evaluate(() => document.fonts.ready);
+      assert(response.status() === 200, `${locale} ${width}: HTTP 200`);
+      const state = await page.evaluate(() => ({
+        lang: document.documentElement.lang,
+        overflow: document.documentElement.scrollWidth > innerWidth,
+        h1: document.querySelectorAll('h1').length,
+        name: document.querySelector('.hero-id').textContent,
+        cta: document.querySelector('.hero-ctas').getBoundingClientRect().bottom,
+        canonical: document.querySelector('link[rel="canonical"]').getAttribute('href'),
+      }));
+      assert(state.lang === locale && !state.overflow && state.h1 === 1, `${locale} ${width}: language, one h1, no overflow`);
+      assert(state.name.includes('Giuseppe Coppolecchia') && state.name.includes('Junior'), `${locale} ${width}: name and junior role`);
+      assert(state.cta < (width < 760 ? 844 : 900), `${locale} ${width}: hero CTA above fold`);
+      assert(state.canonical.endsWith(`/${locale}`), `${locale}: canonical`);
+      if ([390, 768, 1440].includes(width)) await page.screenshot({ path: `output/playwright/home-${locale}-${width}.png`, fullPage: true });
+      if (width === 390) {
+        await page.getByRole('button', { name: 'Menu', exact: true }).click();
+        assert(await page.locator('#mobile-nav').isVisible(), `${locale}: mobile menu opens`);
+        await page.keyboard.press('Escape');
+        assert(!(await page.locator('#mobile-nav').isVisible()), `${locale}: Escape closes menu`);
+        assert(await page.getByRole('button', { name: 'Menu', exact: true }).evaluate(el => el === document.activeElement), `${locale}: menu restores focus`);
+        await page.locator('#step-0').focus();
+        for (let i = 1; i < 4; i++) { await page.keyboard.press('ArrowRight'); assert(await page.locator(`#step-${i}`).isChecked(), `${locale}: trail keyboard step ${i+1}`); }
+        assert(await page.locator('#thought-3 a').isVisible(), `${locale}: final trail has case-study link`);
+      }
+    }
+    for (const slug of ['care-workspace', 'ohara', 'prestissimo']) {
+      await page.setViewportSize({ width: 390, height: 844 });
+      const response = await page.goto(`${base}/${locale}/projects/${slug}`);
+      assert(response.status() === 200, `${locale}/${slug}: HTTP 200`);
+      assert(await page.locator('h1').count() === 1, `${locale}/${slug}: one h1`);
+      assert(!(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)), `${locale}/${slug}: no mobile overflow`);
+      await page.screenshot({ path: `output/playwright/case-${locale}-${slug}-390.png`, fullPage: true });
+      const other = locale === 'en' ? 'it' : 'en';
+      const switcher = page.locator('.languages a');
+      assert((await switcher.getAttribute('href')) === `/${other}/projects/${slug}`, `${locale}/${slug}: equivalent language href`);
+      await switcher.click();
+      await page.waitForURL(`**/${other}/projects/${slug}`);
+      assert(await page.locator('html').getAttribute('lang') === other, `${locale}/${slug}: language switch renders correct language`);
+    }
+  }
+  for (const path of ['/fr', '/en/projects/missing', '/it/missing', '/missing/path']) {
+    const response = await page.goto(base + path);
+    assert(response.status() === 404, `${path}: HTTP 404`);
+  }
+  await page.goto(base);
+  assert(new URL(page.url()).pathname === '/en', 'Root redirects to English');
+  for (const path of ['/sitemap.xml', '/robots.txt', '/en/opengraph-image', '/it/opengraph-image', '/icon.svg']) {
+    const response = await page.request.get(base + path);
+    assert(response.status() === 200, `${path}: HTTP 200`);
+  }
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto(`${base}/en`);
+  await page.locator('#step-3').check({ force: true });
+  assert(await page.locator('#thought-3').evaluate(el => getComputedStyle(el).animationName === 'none'), 'Reduced motion removes trail animation');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  const links = await page.locator('a[href]').evaluateAll(nodes => nodes.map(n => n.getAttribute('href')));
+  for (const href of [...new Set(links.filter(h => h.startsWith('/')))]) {
+    const response = await page.request.get(base + href.split('#')[0]);
+    assert(response.status() === 200, `Internal link ${href}`);
+  }
+  assert(errors.length === 0, `No browser runtime errors: ${errors.join('; ')}`);
+  return { passed: results.length, results };
+}

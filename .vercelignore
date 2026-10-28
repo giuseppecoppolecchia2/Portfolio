@@ -1,0 +1,11 @@
+PLAN.md
+PROMPT_CODEX.md
+CONTENT_BRIEF.md
+QA_REPORT.md
+DESIGN_RATIONALE.md
+.hallmark/
+output/
+.playwright-cli/
+assets/source/
+scripts/
+tmp/

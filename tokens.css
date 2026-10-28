@@ -1,0 +1,10 @@
+:root {
+ --color-paper:#141618; --color-ink:#f0eee8; --color-muted:#afb3b8; --color-rule:#373c42;
+ --color-blue:#99a6ff; --color-blue-hover:#b2bcff; --color-coral:#ff9279;
+ --color-button:#4255f5; --color-button-hover:#5265ff; --color-on-button:#f7f5ef;
+ --color-panel:#1d2127; --color-screenshot-surface:#252b31;
+ --color-care:#e3e9dc; --color-care-ink:#344737; --color-play:#232525; --color-play-ink:#dfedb6;
+ --color-record:#ec795a; --color-record-ink:#292322; --color-transparent:transparent;
+ --font-body:var(--font-reddit),sans-serif; --font-display:var(--font-reddit),sans-serif;
+ --wrap:1360px; --gutter:clamp(22px,4.5vw,72px); --gap:32px; --duration:240ms; --ease:cubic-bezier(.2,.7,.2,1);
+}

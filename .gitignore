@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+.vercel/
+.env*
+!.env.example
+*.tsbuildinfo
+assets/source/
+output/
+.playwright-cli/
+tmp/
+# Local planning documents and design audit artifacts.
+/PLAN.md
+/PROMPT_CODEX.md
+/CONTENT_BRIEF.md
+/.hallmark/
