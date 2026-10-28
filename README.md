@@ -1,59 +1,113 @@
 # Giuseppe Coppolecchia — FOLLOW THE WHY
 
-Portfolio bilingue Next.js App Router, React, TypeScript strict e Tailwind CSS. Tema dark, screenshot autentici dei tre progetti, homepage IT/EN, Curiosity Trail senza JavaScript, tre case study per lingua, metadata localizzati, sitemap, robots e immagini Open Graph.
+Il mio portfolio personale: progetti, percorso e domande che guidano il mio modo di sviluppare per il web. Sono un **Junior Frontend / Full-Stack Developer**, con una base React e competenze PHP/Laravel e Supabase.
+
+**[Visita il portfolio in italiano](https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app/it)** · **[Explore in English](https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app/en)**
+
+[LinkedIn](https://www.linkedin.com/in/giuseppe-coppolecchia-dev) · [GitHub](https://github.com/giuseppecoppolecchia2)
+
+## Il concept
+
+**FOLLOW THE WHY** racconta un approccio curioso e concreto: capire non soltanto come risolvere un problema, ma perché esiste. Un design editoriale dark, tipografia ampia e una linea della curiosità accompagnano due percorsi: una sintesi rapida per recruiter e approfondimenti sui progetti.
+
+Il **Curiosity Trail** permette di esplorare quattro tappe — osservare, chiedersi, capire, costruire — attraverso controlli HTML nativi, utilizzabili anche senza JavaScript.
+
+## Cosa trovi nel sito
+
+- Homepage italiana e inglese con cambio lingua che conserva il case study corrente.
+- Tre case study, ciascuno con domanda iniziale, implementazione, scelte tecniche e risultato documentato.
+- Screenshot autentici dei progetti, ottimizzati in WebP e serviti con `next/image`.
+- Percorso personale, formazione, interessi e sintesi “In 30 secondi”.
+- CV italiano e inglese scaricabili dall'header, dal menu mobile e dalla sintesi recruiter.
+- Navigazione da tastiera, skip link, focus visibile e supporto a `prefers-reduced-motion`.
+- Metadata localizzati, canonical, hreflang, sitemap, robots e immagini Open Graph.
+
+## Progetti raccontati
+
+| Progetto | Tema del case study | Approfondimento |
+| --- | --- | --- |
+| Dott.ssa Rosanna Mininni | Sito pubblico accogliente e spazio di lavoro riservato, con React e Supabase | [Case study](https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app/it/projects/care-workspace) · [Sito pubblico](https://www.psicologamininni.com) |
+| Ohara | Scoperta di videogiochi, profili e preferiti con React, RAWG e Supabase | [Case study](https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app/it/projects/ohara) · [Demo](https://ohara-blush.vercel.app) · [Repository](https://github.com/giuseppecoppolecchia2/Ohara) |
+| Prestissimo | Progetto marketplace di vinili, con PHP/Laravel, ricerca e accesso per ruoli | [Case study](https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app/it/projects/prestissimo) · [Repository](https://github.com/giuseppecoppolecchia2/Prestissimo) |
+
+Per Ohara è utilizzata la schermata di benvenuto scelta dal proprietario; per Prestissimo, lo screenshot originale `screenshots/Detail.png`. Il progetto sanitario mostra esclusivamente la homepage pubblica. Provenienza delle immagini in [SOURCES.md](public/media/projects/SOURCES.md).
+
+## Stack del portfolio
+
+**Next.js App Router · React · TypeScript strict · Tailwind CSS · CSS personalizzato**
+
+I contenuti principali sono renderizzati dal server e le otto pagine di contenuto sono prerenderizzate. L'header usa JavaScript per menu e selettore lingua. Il font Reddit Sans è servito localmente tramite `next/font`.
+
+Next.js e TypeScript descrivono le tecnologie utilizzate per questo portfolio; non sono presentati automaticamente come esperienza professionale pregressa. Non sono richiesti database, CMS, chiavi API o servizi di autenticazione per eseguire il sito.
 
 ## Avvio locale
 
-Richiede Node.js 24 LTS e npm.
+Richiede **Node.js 24.x** e npm.
 
-```powershell
+```bash
 npm ci
 npm run dev
 ```
 
-Apri http://127.0.0.1:3000/it oppure http://127.0.0.1:3000/en. La root reindirizza all'inglese. La lingua è esplicita nell'URL e cambia conservando il case study.
+Apri [Italiano](http://127.0.0.1:3000/it) oppure [English](http://127.0.0.1:3000/en). La root `/` reindirizza a `/en`.
 
-```powershell
+Per verificare ed eseguire la build di produzione:
+
+```bash
 npm run lint
 npm run typecheck
 npm run build
 npm start
 ```
 
-Il font viene scaricato durante sviluppo/build e servito localmente ai visitatori, senza richieste a Google Fonts dal browser. È necessaria rete durante la prima compilazione.
+Il font viene scaricato durante la prima compilazione: è necessaria una connessione durante la build, mentre i visitatori non effettuano richieste a Google Fonts.
 
-## Dove modificare il sito
+## Contenuti e struttura
 
-| File | Contenuto |
+| Percorso | Cosa modificare |
 | --- | --- |
-| `src/content/site.ts` | Testi IT/EN, profilo, link pubblici e configurazione URL |
-| `src/content/projects.ts` | Case study bilingui, stack, repository e stato delle demo |
-| `src/components/ProjectCover.tsx` | Screenshot responsive con next/image; fonti in `public/media/projects/SOURCES.md` |
-| `tokens.css` | Palette, font, spazi e misure di base |
-| `src/app/globals.css` | Layout, responsive, stati e motion |
-| `src/lib/metadata.ts` | SEO e social per pagina |
+| `src/content/site.ts` | Copy IT/EN, profilo, link e associazione lingua/CV |
+| `src/content/projects.ts` | Testi dei case study, tecnologie, screenshot e link verificati |
+| `src/components/` | Header, footer, Curiosity Trail e anteprime progetto |
+| `src/app/[locale]/` | Homepage, case study e immagini Open Graph |
+| `src/lib/metadata.ts` | SEO e metadati per pagina |
+| `tokens.css` | Colori, font, misure e spazi di base |
+| `src/app/globals.css` | Layout, responsive e microinterazioni |
+| `public/media/projects/` | Screenshot WebP e note sulle fonti |
+| `public/cv/` | Copie web dei CV IT/EN, senza telefono |
+| `scripts/` | Controlli browser riproducibili con Playwright CLI |
 
-## Contenuti da approvare o completare
+## Deploy su Vercel
 
-- CV italiano e inglese disponibili in `public/cv/`, senza telefono e con testo selezionabile. Link nell'header, nel menu mobile e in “In 30 secondi”; associazione lingua/PDF in `src/content/site.ts`. L'email già presente nei CV forniti è mantenuta nei PDF; il contatto principale del sito resta LinkedIn.
-- Nome della Dott.ssa Rosanna Mininni e screenshot della homepage pubblica autorizzati. Non aggiungere dashboard o dati clinici. Il percorso `/projects/care-workspace` resta stabile per conservare i link esistenti.
-- Contributi individuali/coautori e riflessioni personali sui progetti. Lezioni e risultati non documentati sono omessi.
-- Eventuali altri screenshot e ritratto personale. Sono già presenti tre screenshot autentici autorizzati: due catture dei siti pubblici e il catalogo Prestissimo dal repository originale.
-- Dominio finale e approvazione del copy personale in entrambe le lingue.
+Il sito è pubblicato su Vercel. Il file `vercel.json` imposta **Next.js**, `npm run build` e output `.next`, evitando l'uso del preset Node.js generico.
 
-Non aggiungere il telefono del CV o informazioni sanitarie al codice pubblico. `assets/source/` è esclusa da Git e dal deploy; contiene eventuali documenti privati solo in locale. Prima di caricare su GitHub usa un repository **privato**: PLAN.md e PROMPT_CODEX.md contengono dati personali e riferimenti da approvare. `.vercelignore` esclude questi documenti dal caricamento con Vercel CLI; l'importazione Git deve comunque avvenire da un repository privato o ripulito.
+Per un nuovo deployment:
 
-## Pubblicazione su Vercel
+1. Importa il repository GitHub e seleziona il branch `main`.
+2. Mantieni la **Root Directory sulla root del repository**, dove si trovano `package.json` e `vercel.json`.
+3. Usa Node.js **24.x**.
+4. Imposta `SITE_URL` nell'ambiente Production con l'origine HTTPS effettiva, senza percorso e senza slash finale:
 
-`vercel.json` fissa esplicitamente il framework Next.js, il comando di build e l'output `.next`, evitando che un preset Node.js generico cerchi un entrypoint `main.ts` o `server.ts`. La Root Directory su Vercel deve essere la root del repository, dove si trovano `package.json` e `vercel.json`.
+   ```text
+   SITE_URL=https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app
+   ```
 
-1. Approva i contenuti pubblici e carica il progetto in un repository GitHub privato. Se non è già un repository, inizializzalo e crea il primo commit.
-2. In Vercel scegli **Add New → Project**, importa il repository e lascia il preset **Next.js**, root del progetto, comando `npm run build` e output automatico.
-3. Imposta Node.js **24.x** e la variabile `SITE_URL` con l'origine HTTPS finale, senza slash conclusivo, per esempio il dominio assegnato da Vercel. Non occorrono segreti o servizi backend.
-4. Avvia il deploy. Se inizialmente non conosci il dominio, Vercel può fornire `VERCEL_PROJECT_PRODUCTION_URL`; poi imposta esplicitamente `SITE_URL` e fai **Redeploy**.
-5. Verifica `/en`, `/it`, i sei case study, `/sitemap.xml`, `/robots.txt` e le immagini `/{locale}/opengraph-image`. Controlla canonical e hreflang sul dominio finale.
-6. Se hai un dominio, aggiungilo in **Settings → Domains** e segui i record DNS indicati da Vercel. Aggiorna `SITE_URL`, ricompila e verifica HTTPS.
+5. Esegui il deploy dell'ultimo commit. Se modifichi `SITE_URL`, ricompila tramite un nuovo deployment.
 
-Per una preview separata imposta un `SITE_URL` corrispondente alla preview se vuoi testarne i canonical. Vercel gestisce normalmente la non indicizzazione dei deployment di preview; controlla gli header effettivi prima di condividere.
+Se `SITE_URL` non è impostata, il codice usa `VERCEL_PROJECT_PRODUCTION_URL` quando disponibile. In locale il fallback è `http://localhost:3000`; `.env.example` documenta la configurazione.
 
-Il portfolio è stato verificato in locale; non è stato pubblicato né collegato a un account Vercel. Misure e limiti dei controlli: `QA_REPORT.md`. Decisioni visive e riferimenti: `DESIGN_RATIONALE.md`.
+Con un dominio personalizzato, aggiorna `SITE_URL` e verifica nuovamente canonical, hreflang, sitemap e immagini social. Non occorrono credenziali dei progetti presentati nei case study.
+
+## Verifiche
+
+Sono stati eseguiti lint, controllo TypeScript, build di produzione, controlli Playwright su desktop/mobile e download reali dei CV IT/EN. I test includono navigazione da tastiera, menu, cambio lingua, caricamento immagini, movimento ridotto e pagine non trovate.
+
+L'audit Lighthouse mobile locale della home italiana dark ha misurato **100** per Performance, Accessibility, Best Practices e SEO. Questi risultati riguardano il test locale documentato e non costituiscono una misurazione del dominio pubblico né una certificazione di accessibilità. Safari/WebKit e dispositivi fisici non sono stati verificati.
+
+Dettagli e limiti in [QA_REPORT.md](QA_REPORT.md). Riferimenti e decisioni visive in [DESIGN_RATIONALE.md](DESIGN_RATIONALE.md).
+
+## Contenuti pubblici e privacy
+
+Le copie web dei CV mantengono il testo selezionabile e l'email fornita, senza numero di telefono. Gli originali personali restano fuori dal repository. Non sono incluse schermate amministrative, informazioni cliniche o credenziali.
+
+`.gitignore` esclude dipendenze, build, variabili d'ambiente locali, file temporanei, documenti di pianificazione e originali in `assets/source/`. `.vercelignore` esclude inoltre gli artefatti di lavoro dal caricamento tramite Vercel CLI. Le immagini dei videogiochi e dei vinili presenti negli screenshot appartengono ai rispettivi titolari.
