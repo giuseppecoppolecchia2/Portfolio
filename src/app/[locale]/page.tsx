@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { copy, cv, isLocale, profile } from "@/content/site";
 import { projects } from "@/content/projects";
@@ -25,7 +26,17 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <div className="project-list">{projects.map(project => { const s = project.stories[locale]; return <article key={project.slug} className="project-row"><Link href={`/${locale}/projects/${project.slug}`} className="project-visual"><ProjectCover theme={project.theme} locale={locale}/><span className="project-open" aria-hidden="true">↗</span></Link><div className="project-info"><span className="project-number">/{project.number}</span><div><p className="project-category">{s.category}</p><h3><Link href={`/${locale}/projects/${project.slug}`}>{s.name}</Link></h3><p className="project-summary">{s.summary}</p><span className="project-tech">{project.technologies.slice(0,3).join(" / ")}</span><Link href={`/${locale}/projects/${project.slug}`} className="text-link">{t.read}<span aria-hidden="true">↗</span></Link></div></div></article>; })}</div>
     </section>
     <section className="thinking" aria-labelledby="thinking-heading"><div className="wrap"><h2 id="thinking-heading">{t.thinking}</h2><div className="principles">{t.principles.map((principle, i) => <article key={principle.slug}><span aria-hidden="true">0{i+1}</span><h3>{principle.title}</h3><p>{principle.text}</p><Link href={`/${locale}/projects/${principle.slug}`} className="text-link">{projects[i].stories[locale].name}<span aria-hidden="true">↗</span></Link></article>)}</div></div></section>
-    <section id="about" className="about wrap" aria-labelledby="about-heading"><div className="about-top"><h2 id="about-heading">{t.aboutTitle}</h2><div><p className="about-intro">{t.aboutText}</p><div className="outside"><span className="outside-symbol" aria-hidden="true">✳</span><div><h3>{t.outside}</h3><p>{t.outsideText}</p></div></div></div></div><ol className="timeline">{t.timeline.map(item => <li key={item.date}><span>{item.date}</span><div><h3>{item.title}</h3><p>{item.place}</p></div></li>)}</ol></section>
+    <section id="about" className="about wrap" aria-labelledby="about-heading">
+      <h2 id="about-heading">{t.aboutTitle}</h2>
+      <div className="about-top">
+        <figure className="about-portrait">
+          <div className="portrait-frame"><Image src="/media/giuseppe-coppolecchia.webp" width={768} height={768} sizes="(max-width: 420px) calc(100vw - 44px), 360px" alt={locale === "it" ? "Ritratto di Giuseppe Coppolecchia" : "Portrait of Giuseppe Coppolecchia"} /></div>
+          <figcaption>{profile.name}</figcaption>
+        </figure>
+        <div><p className="about-intro">{t.aboutText}</p><div className="outside"><span className="outside-symbol" aria-hidden="true">✳</span><div><h3>{t.outside}</h3><p>{t.outsideText}</p></div></div></div>
+      </div>
+      <ol className="timeline">{t.timeline.map(item => <li key={item.date}><span>{item.date}</span><div><h3>{item.title}</h3><p>{item.place}</p></div></li>)}</ol>
+    </section>
     <section id="quick" className="quick wrap" aria-labelledby="quick-heading"><div><p>{t.quick}</p><h2 id="quick-heading">{t.snapshot}</h2><p className="quick-intro">{t.snapshotText}</p><a className="button cv-download" href={cv[locale]} download>{t.downloadCv}<span aria-hidden="true">↓</span></a><span className="cv-details">{t.cvDetails}</span></div><div className="quick-details"><dl>{[[t.skills[0], "React / JavaScript / HTML / CSS / Tailwind"], [t.skills[1], "PHP / Laravel / MySQL / Supabase / REST API"], [t.skills[2], "Git / GitHub / Agile / Scrum / Debugging"]].map(([label,value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><p>{t.education}</p><p>{t.languages}</p><a className="text-link" href={profile.github}>GitHub<span aria-hidden="true">↗</span></a></div></section>
     <section id="contact" className="contact wrap" aria-labelledby="contact-heading"><span className="contact-mark" aria-hidden="true">?</span><h2 id="contact-heading">{t.contactTitle}</h2><div className="contact-bottom"><p>{t.contactText}</p><a className="button" href={profile.linkedin}>{t.linkedin}<span aria-hidden="true">↗</span></a></div></section>
   </main>;

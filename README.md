@@ -17,7 +17,7 @@ Il **Curiosity Trail** permette di esplorare quattro tappe — osservare, chiede
 - Homepage italiana e inglese con cambio lingua che conserva il case study corrente.
 - Tre case study, ciascuno con domanda iniziale, implementazione, scelte tecniche e risultato documentato.
 - Screenshot autentici dei progetti, ottimizzati in WebP e serviti con `next/image`.
-- Percorso personale, formazione, interessi e sintesi “In 30 secondi”.
+- Ritratto personale nella sezione About, percorso, formazione, interessi e sintesi “In 30 secondi”.
 - CV italiano e inglese scaricabili dall'header, dal menu mobile e dalla sintesi recruiter.
 - Navigazione da tastiera, skip link, focus visibile e supporto a `prefers-reduced-motion`.
 - Metadata localizzati, canonical, hreflang, sitemap, robots e immagini Open Graph.

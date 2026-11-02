@@ -1,5 +1,11 @@
 # Verifica — FOLLOW THE WHY
 
+## 2 novembre 2026 — Ritratto personale
+
+Inserita la fotografia fornita da Giuseppe nella sezione About, con titolo sopra la griglia e ritratto accanto al racconto. Conversione WebP 768×768 da 56.534 byte, senza metadati EXIF; originale non modificato. Ritaglio CSS 4:5 su desktop e quadrato su mobile, caricamento lazy e testo alternativo IT/EN.
+
+Lint, TypeScript e build di produzione passati. Verificati caricamento, alt localizzato, dimensioni della cornice e assenza di overflow in entrambe le lingue a 320, 390, 768 e 1440px. Schermate desktop/mobile controllate visivamente; vista finale in `output/playwright/portrait-desktop-final.png`. Nessun nuovo audit Lighthouse o test su dispositivo fisico per questa modifica.
+
 ## Aggiornamento: CV italiano e inglese
 
 PDF forniti da Giuseppe, entrambi di una pagina. Create copie web in `public/cv/`: rimossa realmente la riga contenente il telefono e ricomposta senza numero; mantenuti email, località e restante contenuto. Originali non modificati. Riaperti i PDF, verificati testo selezionabile, assenza del numero nel testo estraibile e assenza di collegamenti `tel:`, renderizzate e controllate entrambe le pagine finali. Rimossi metadati originali dalle copie web.
