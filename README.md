@@ -15,7 +15,7 @@ Il **Curiosity Trail** permette di esplorare quattro tappe — osservare, chiede
 ## Cosa trovi nel sito
 
 - Homepage italiana e inglese con cambio lingua che conserva il case study corrente.
-- Tre case study, ciascuno con domanda iniziale, implementazione, scelte tecniche e risultato documentato.
+- Case study con domanda iniziale, implementazione, scelte tecniche e risultato documentato.
 - Screenshot autentici dei progetti, ottimizzati in WebP e serviti con `next/image`.
 - Ritratto personale nella sezione About, percorso, formazione, interessi e sintesi “In 30 secondi”.
 - CV italiano e inglese scaricabili dall'header, dal menu mobile e dalla sintesi recruiter.
@@ -29,6 +29,7 @@ Il **Curiosity Trail** permette di esplorare quattro tappe — osservare, chiede
 | Dott.ssa Rosanna Mininni | Sito pubblico accogliente e spazio di lavoro riservato, con React e Supabase | [Case study](https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app/it/projects/care-workspace) · [Sito pubblico](https://www.psicologamininni.com) |
 | Ohara | Scoperta di videogiochi, profili e preferiti con React, RAWG e Supabase | [Case study](https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app/it/projects/ohara) · [Demo](https://ohara-blush.vercel.app) · [Repository](https://github.com/giuseppecoppolecchia2/Ohara) |
 | Prestissimo | Progetto marketplace di vinili, con PHP/Laravel, ricerca e accesso per ruoli | [Case study](https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app/it/projects/prestissimo) · [Repository](https://github.com/giuseppecoppolecchia2/Prestissimo) |
+| Sto al Trullo | Sito bilingue per una struttura ricettiva, con calendario e richieste di disponibilità via WhatsApp | [Case study](https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app/it/projects/sto-al-trullo) · [Sito pubblico](https://stoaltrullo.vercel.app) |
 
 Per Ohara è utilizzata la schermata di benvenuto scelta dal proprietario; per Prestissimo, lo screenshot originale `screenshots/Detail.png`. Il progetto sanitario mostra esclusivamente la homepage pubblica. Provenienza delle immagini in [SOURCES.md](public/media/projects/SOURCES.md).
 
@@ -36,7 +37,7 @@ Per Ohara è utilizzata la schermata di benvenuto scelta dal proprietario; per P
 
 **Next.js App Router · React · TypeScript strict · Tailwind CSS · CSS personalizzato**
 
-I contenuti principali sono renderizzati dal server e le otto pagine di contenuto sono prerenderizzate. L'header usa JavaScript per menu e selettore lingua. Il font Reddit Sans è servito localmente tramite `next/font`.
+Le homepage e i case study sono prerenderizzati in entrambe le lingue. L'header usa JavaScript per menu e selettore lingua. Il font Reddit Sans è servito localmente tramite `next/font`.
 
 Next.js e TypeScript descrivono le tecnologie utilizzate per questo portfolio; non sono presentati automaticamente come esperienza professionale pregressa. Non sono richiesti database, CMS, chiavi API o servizi di autenticazione per eseguire il sito.
 

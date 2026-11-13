@@ -34,7 +34,7 @@ async (page) => {
         assert(await page.locator('#thought-3 a').isVisible(), `${locale}: final trail has case-study link`);
       }
     }
-    for (const slug of ['care-workspace', 'ohara', 'prestissimo']) {
+    for (const slug of ['care-workspace', 'ohara', 'prestissimo', 'sto-al-trullo']) {
       await page.setViewportSize({ width: 390, height: 844 });
       const response = await page.goto(`${base}/${locale}/projects/${slug}`);
       assert(response.status() === 200, `${locale}/${slug}: HTTP 200`);
