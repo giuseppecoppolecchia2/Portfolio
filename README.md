@@ -105,8 +105,6 @@ Sono stati eseguiti lint, controllo TypeScript, build di produzione, controlli P
 
 L'audit Lighthouse mobile locale della home italiana dark ha misurato **100** per Performance, Accessibility, Best Practices e SEO. Questi risultati riguardano il test locale documentato e non costituiscono una misurazione del dominio pubblico né una certificazione di accessibilità. Safari/WebKit e dispositivi fisici non sono stati verificati.
 
-Dettagli e limiti in [QA_REPORT.md](QA_REPORT.md). Riferimenti e decisioni visive in [DESIGN_RATIONALE.md](DESIGN_RATIONALE.md).
-
 ## Contenuti pubblici e privacy
 
 Le copie web dei CV mantengono il testo selezionabile e l'email fornita, senza numero di telefono. Gli originali personali restano fuori dal repository. Non sono incluse schermate amministrative, informazioni cliniche o credenziali.
