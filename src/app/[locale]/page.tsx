@@ -56,7 +56,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </div>
     </section>
     <div id="trail"><Trail locale={locale}/></div>
-    <section className="thinking" aria-labelledby="thinking-heading"><div className="wrap"><h2 id="thinking-heading">{t.thinking}</h2><div className="principles">{t.principles.map((principle, i) => <article key={principle.slug}><h3>{principle.title}</h3><p>{principle.text}</p><Link href={`/${locale}/projects/${principle.slug}`} className="text-link">{projects[i].stories[locale].name}<span aria-hidden="true">↗</span></Link></article>)}</div></div></section>
+    <section className="thinking" aria-labelledby="thinking-heading"><div className="wrap"><h2 id="thinking-heading">{t.thinking}</h2><div className="principles">{t.principles.map(principle => {
+      const project = projects.find(project => project.slug === principle.slug);
+      return <article key={principle.slug}>
+        <h3>{principle.title}</h3><p>{principle.text}</p>
+        {project && <Link href={`/${locale}/projects/${project.slug}`} className="text-link">{project.stories[locale].name}<span aria-hidden="true">↗</span></Link>}
+      </article>;
+    })}</div></div></section>
     <section id="about" className="about wrap" aria-labelledby="about-heading">
       <div className="about-top">
         <h2 id="about-heading">{t.aboutTitle}</h2>

@@ -27,9 +27,9 @@ Il **Curiosity Trail** permette di esplorare quattro tappe — osservare, chiede
 | Progetto | Tema del case study | Approfondimento |
 | --- | --- | --- |
 | Dott.ssa Rosanna Mininni | Sito pubblico accogliente e spazio di lavoro riservato, con React e Supabase | [Case study](https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app/it/projects/care-workspace) · [Sito pubblico](https://www.psicologamininni.com) |
+| Sto al Trullo | Sito bilingue per una struttura ricettiva, con calendario e richieste di disponibilità via WhatsApp | [Case study](https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app/it/projects/sto-al-trullo) · [Sito pubblico](https://stoaltrullo.vercel.app) |
 | Ohara | Scoperta di videogiochi, profili e preferiti con React, RAWG e Supabase | [Case study](https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app/it/projects/ohara) · [Demo](https://ohara-blush.vercel.app) · [Repository](https://github.com/giuseppecoppolecchia2/Ohara) |
 | Prestissimo | Progetto marketplace di vinili, con PHP/Laravel, ricerca e accesso per ruoli | [Case study](https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app/it/projects/prestissimo) · [Repository](https://github.com/giuseppecoppolecchia2/Prestissimo) |
-| Sto al Trullo | Sito bilingue per una struttura ricettiva, con calendario e richieste di disponibilità via WhatsApp | [Case study](https://portfolio-ruddy-chi-8ox0ecdg52.vercel.app/it/projects/sto-al-trullo) · [Sito pubblico](https://stoaltrullo.vercel.app) |
 
 Per Ohara è utilizzata la schermata di benvenuto scelta dal proprietario; per Prestissimo, lo screenshot originale `screenshots/Detail.png`. Il progetto sanitario mostra esclusivamente la homepage pubblica. Provenienza delle immagini in [SOURCES.md](public/media/projects/SOURCES.md).
 
